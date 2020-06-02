@@ -10,7 +10,8 @@ export default function LoginScreen(props: any) {
     return (
         <View style={styles.container}>
             <Text>Login </Text>
-            <Button title="Next Page" onPress={() => props.navigation.navigate("RegistrationScreen")} />
+            <Button title="Next Page" onPress={() => props.navigation.navigate("MainScreen")} />
+            <Button title="Register" onPress={() => props.navigation.navigate('RegistrationScreen')} />
         </View>
     )
 }
@@ -18,7 +19,9 @@ export default function LoginScreen(props: any) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center'
     }
+
 })
