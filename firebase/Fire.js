@@ -2,11 +2,6 @@ import firebase from 'firebase';
 
 class Fire {
     constructor() {
-        this.init();
-        this.checkAuth();
-    }
-
-    init = () => {
         if (!firebase.apps.length) {
             firebase.initializeApp({
                 apiKey: "AIzaSyCbfxXup_hgJdTcjWSRtdL6mtEtiZSN2sU",
@@ -21,54 +16,50 @@ class Fire {
         }
     }
 
-    checkAuth = () => {
-        firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
-                firebase.auth().signInAnonymously();
-            }
-        })
+    login = async (user, success_callback, failed_callback) => {
+        await firebase
+            .auth()
+            .signInWithEmailAndPassword(user.email, user.password)
+            .then(success_callback, failed_callback);
+    };
+
+    refOn = callback => {
+        this.ref
+            .limitToLast(20)
+            .on('child_added', snapshot => callback(this.parse(snapshot)));
     }
 
-    send = messages => {
-        messages.forEach(item => {
-            const message = {
-                text: item.text,
-                timestamp: firebase.database.ServerValue.TIMESTAMP,
-                user: item.user
-            }
-            this.db.push(message);
-        })
-    }
-
-    parse = message => {
-        const { user, text, timestamp } = message.val()
-        const { key: _id } = message
-        const createdAt = new Date(timestamp)
-
-        return {
-            _id,
-            createdAt,
-            text,
-            user
-        }
-    }
-
-    get = callback => {
-        this.db.on("child_added", snapshot => callback(this.parse(snapshot)))
-    }
-
-    off() {
-        this.db.off();
-    }
-
-    get db() {
-        return firebase.database().ref('messages')
-    }
-
-    get uid() {
-        return (firebase.auth().currentUser || {}).uid;
-    }
+    createAccount = async user => {
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(user.email, user.password)
+            .then(
+                function () {
+                    console.log(
+                        'created user successfully. User email:' +
+                        user.email +
+                        ' name:' +
+                        user.name
+                    );
+                    var userf = firebase.auth().currentUser;
+                    userf.updateProfile({ displayName: user.name }).then(
+                        function () {
+                            console.log('Updated displayName successfully. name:' + user.name);
+                            alert(
+                                'User ' + user.name + ' was created successfully. Please login.'
+                            );
+                        },
+                        function (error) {
+                            //console.warn('Error update displayName.');
+                        }
+                    );
+                },
+                function (error) {
+                    //console.error('got error:' + typeof error + ' string:' + error.message);
+                    alert('Create account failed. Error: ' + error.message);
+                }
+            );
+    };
 }
 
-
-export default new Fire();
+export default Fire;
