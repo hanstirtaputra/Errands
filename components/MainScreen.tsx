@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useContext } from "react";
 import {
     Alert,
     Modal,
@@ -8,14 +8,37 @@ import {
     View
 } from "react-native";
 import PostForm from './PostForm';
+import ActivityFeed from "./ActivityFeed";
 
 /**
  * TODO: 
- * 1) Create Post button
  * 2) Display all posts
  */
 const MainScreen = () => {
+    var idCount = 0;
+    const data = [
+        {
+            id: idCount,
+            itemsCanCarry: "10",
+            returnTime: "2300hrs",
+            destination: "Korea"
+        },
+    ]
+
     const [modalVisible, setModalVisible] = useState(false);
+    // State affecting all the posts visible in main screen, passed as props to ActivityFeed
+    const [allPosts, addToPost] = useState(data);
+
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+
+    const updatePosts = (time, noItems, selectedDestination) => {
+        idCount++;
+        setModalVisible(!modalVisible);
+        addToPost([...allPosts, { id: idCount, itemsCanCarry: noItems, returnTime: time, destination: selectedDestination }]);
+        console.log(allPosts);
+    }
 
     return (
 
@@ -29,8 +52,10 @@ const MainScreen = () => {
                 >
                     <Text style={styles.textStyle}>New Post</Text>
                 </TouchableHighlight>
-
             </View>
+
+            <ActivityFeed data={allPosts} />
+
 
             <View style={styles.modal}>
                 <Modal
@@ -43,32 +68,17 @@ const MainScreen = () => {
                 >
                     <View style={styles.modal}>
                         <View style={styles.modalView}>
-                            <PostForm />
-                            <View style={{ flexDirection: 'row', alignContent: 'space-between' }}>
-                                <TouchableHighlight
-                                    style={{ ...styles.openButton, backgroundColor: "#C84444" }}
-                                    onPress={() => {
-                                        setModalVisible(!modalVisible);
-                                    }}
-                                >
-                                    <Text style={styles.textStyle}>X</Text>
-                                </TouchableHighlight>
-                                <TouchableHighlight
-                                    style={{ ...styles.openButton, backgroundColor: "#4a668c" }}
-                                    onPress={() => {
-                                        setModalVisible(!modalVisible);
-                                    }}
-                                >
-                                    <Text style={styles.textStyle}>Submit</Text>
-                                </TouchableHighlight>
-                            </View>
+                            <PostForm closeModal={closeModal} updatePosts={updatePosts} />
                         </View>
                     </View>
                 </Modal>
             </View>
+
         </View>
     );
 };
+
+
 
 const styles = StyleSheet.create({
     centeredView: {

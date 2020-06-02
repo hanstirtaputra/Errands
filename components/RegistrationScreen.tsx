@@ -1,16 +1,35 @@
 import React from "react";
 import { View, Button, TextInput, StyleSheet, Text } from "react-native";
+import Fire from '../firebase/Fire';
 
 export default class SignUp extends React.Component {
   state = {
-    username: "",
+    name: "",
     password: "",
     email: "",
     phone_number: "",
   };
+
+  fire = new Fire();
+
+  onPressCreate = async () => {
+    try {
+      const user = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      };
+      await this.fire.createAccount(user)
+        .then(() => this.props.navigation.navigate("LoginScreen"));
+    } catch (message) {
+      console.log('create account failed. catch error:');
+    }
+  };
+
   onChangeText = (key: any, val: any) => {
     this.setState({ [key]: val });
   };
+
   signUp = () => {
     this.props.navigation.navigate("LoginScreen");
   };
@@ -24,7 +43,7 @@ export default class SignUp extends React.Component {
           placeholder="Username"
           autoCapitalize="none"
           placeholderTextColor="white"
-          onChangeText={(val) => this.onChangeText("username", val)}
+          onChangeText={(val) => this.onChangeText("name", val)}
         />
         <TextInput
           style={styles.input}
@@ -48,7 +67,7 @@ export default class SignUp extends React.Component {
           placeholderTextColor="white"
           onChangeText={(val) => this.onChangeText("phone_number", val)}
         />
-        <Button title="Sign Up" onPress={this.signUp} />
+        <Button title="Sign Up" onPress={this.onPressCreate} />
       </View>
     );
   }
