@@ -11,6 +11,7 @@ export default function LoginScreen(props: any) {
         <View style={styles.container}>
             <Text>Login </Text>
             <Button title="Next Page" onPress={() => props.navigation.navigate("MainScreen")} />
+            <Button title="Register" onPress={() => props.navigation.navigate('RegistrationScreen')} />
         </View>
     )
 }
