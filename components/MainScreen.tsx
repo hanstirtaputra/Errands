@@ -8,6 +8,7 @@ import {
     View
 } from "react-native";
 import PostForm from './PostForm';
+import ActivityFeed from "./ActivityFeed";
 
 /**
  * TODO: 
@@ -29,8 +30,9 @@ const MainScreen = () => {
                 >
                     <Text style={styles.textStyle}>New Post</Text>
                 </TouchableHighlight>
-
             </View>
+
+            <ActivityFeed />
 
             <View style={styles.modal}>
                 <Modal
