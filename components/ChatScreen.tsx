@@ -1,46 +1,57 @@
-import React from 'react';
-import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
+import React from "react";
+import { View, Text } from "react-native";
+import { GiftedChat } from "react-native-gifted-chat";
 
-import Fire from '../firebase/Fire';
+const ChatScreen = ({ route, navigation }) => {
+  const [messages, setMessages] = React.useState([]);
+  const language = route.params ? route.params.selectedLanguage : null;
 
-export default class Chat extends React.Component {
-    static navigationOptions = ({ navigation, route }) => ({
-        title: (route.params || {}).name || 'Chat!'
-    });
+  const getText = () => {
+    switch (language) {
+      case "ENGLISH":
+        return "Hello I'll come back with what you need in a jiffy";
 
-    fire = new Fire();
+      case "CHINESE":
+        return "我马上回来";
 
-    state = {
-        messages: []
-    };
+      case "MALAY":
+        return "Saya akan kembali dengan barang-barangnya tidak lama lagi";
 
-    get user() {
-        return {
-            name: this.props.route.params.name,
-            email: this.props.route.params.email,
-            id: this.fire.uid,
-            _id: this.fire.uid
-        };
+      case "TAMIL":
+        return "வணக்கம் மோசமாக ஒரு கணத்தில் உங்களுடன் திரும்பி வாருங்கள்";
+
+      default:
+        return "Hello I'll come back with what you need in a jiffy";
     }
+  };
 
-    render() {
-        return (
-            <GiftedChat
-                messages={this.state.messages}
-                onSend={this.fire.send}
-                user={this.user}
-            />
-        );
-    }
+  React.useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: getText(),
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: "Friendly Neighbour",
+        },
+      },
+    ]);
+  }, []);
 
-    // componentDidMount() {
-    //     this.fire.refOn(message =>
-    //         this.setState(previousState => ({
-    //             messages: GiftedChat.append(previousState.messages, message)
-    //         }))
-    //     );
-    // }
-    // componentWillUnmount() {
-    //     this.fire.refOff();
-    // }
-}
+  const onSend = (newMessages) => {
+    setMessages(GiftedChat.append(messages, newMessages));
+  };
+
+  return (
+    <GiftedChat
+      messages={messages}
+      onSend={(messages) => onSend(messages)}
+      user={{
+        _id: 1,
+      }}
+    />
+  );
+};
+
+export default ChatScreen;
