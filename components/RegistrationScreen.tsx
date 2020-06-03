@@ -8,6 +8,7 @@ export default class SignUp extends React.Component {
     password: "",
     email: "",
     phone_number: "",
+    postal_code: ""
   };
 
   fire = new Fire();
@@ -66,6 +67,14 @@ export default class SignUp extends React.Component {
           autoCapitalize="none"
           placeholderTextColor="white"
           onChangeText={(val) => this.onChangeText("phone_number", val)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Postal Code"
+          autoCapitalize="none"
+          placeholderTextColor="white"
+          onChangeText={(val) => this.onChangeText("postal_code", val)}
         />
         <Button title="Sign Up" onPress={this.onPressCreate} />
       </View>
