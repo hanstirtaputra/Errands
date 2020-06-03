@@ -6,6 +6,7 @@ import {
   Text,
   TouchableHighlight,
   View,
+  Picker,
   TouchableOpacity,
 } from "react-native";
 import PostForm from "./PostForm";
@@ -32,9 +33,10 @@ const MainScreen = (props: any) => {
   const [allPosts, addToPost] = useState(data);
   const [elder, setElder] = useState(false);
   const [language, setLanguage] = useState("ENGLISH");
+  const [selectedValue, setSelectedValue] = useState("Posts");
 
   const navigate = () =>
-    props.navigation.navigate("ChatScreen", { selectedLanguage: language });
+    props.navigation.navigate("ChatScreen", { screenType: 'activity' });
 
   const closeModal = () => {
     setModalVisible(false);
@@ -52,7 +54,6 @@ const MainScreen = (props: any) => {
         destination: selectedDestination,
       },
     ]);
-    console.log(allPosts);
   };
 
   const deletePost = (id) => {
@@ -90,19 +91,20 @@ const MainScreen = (props: any) => {
           style={styles.elderlyMode}
           onPress={() => setElder(!elder)}
         >
-          <Text style={styles.textStyle}>Elderly Mode</Text>
+          <Text style={styles.textStyle}>Elderly Mode👵🏻</Text>
         </TouchableOpacity>
       </View>
 
-      <ActivityFeed
-        data={allPosts}
-        elderly={elder}
-        navigate={navigate}
-        selectedLanguage={language}
-        deletePost={deletePost}
-      />
+      <View style={{ height: '80%' }}>
+        <ActivityFeed
+          data={allPosts}
+          elderly={elder}
+          navigate={navigate}
+          selectedLanguage={language}
+          deletePost={deletePost}
+        />
+      </View>
 
-      <View style={styles.modal}></View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -145,6 +147,18 @@ const MainScreen = (props: any) => {
         >
           <Text>English</Text>
         </TouchableOpacity>
+
+        <View style={styles.picker}>
+          <Picker
+            selectedValue={selectedValue}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue, itemIndex) => itemValue === 'Requests' ? props.navigation.navigate('RequestsScreen') : setSelectedValue(itemValue)}
+          >
+            <Picker.Item label="Posts" value="Posts" />
+            <Picker.Item label="Requests" value="Requests" />
+          </Picker>
+        </View>
+
       </View>
     </View>
   );
@@ -212,7 +226,18 @@ const styles = StyleSheet.create({
   },
   footerButtons: {
     flexDirection: "row",
+    marginTop: 35
   },
+  picker: {
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    width: '20%',
+    borderRadius: 20,
+    marginLeft: 20
+
+
+  }
 });
 
 export default MainScreen;

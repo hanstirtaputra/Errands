@@ -1,34 +1,29 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-/**
- * 1) Settle all the required fields
- * 2) Accept request button to navigate to ChatScreen
- * 3) Sends notification
- */
-const PostEnglish = (props: any) => {
+const RequestEnglish = (props: any) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          Items I can carry: {props.children.itemsCanCarry.toString()}{" "}
+          Items I Need: {props.children.itemsNeed.toString()}{" "}
         </Text>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          Destination: {props.children.destination.toString()}
+          When I Need It By: {props.children.whenNeed.toString()}
         </Text>
         <View>
           <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-            Returning by{" "}
-            {props.children.returnTime.toString().substring(16, 21)}hrs
+            Where I Live:{" "}
+            {props.children.whereLive.toString()}
           </Text>
 
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <TouchableOpacity onPress={() => props.navigate()}>
-              <Text style={styles.request}>Request</Text>
+              <Text style={styles.request}>Assist</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+            <TouchableOpacity onPress={() => props.deleteRequest(props.id)}>
               <Text style={styles.request}>Delete</Text>
             </TouchableOpacity>
           </View>
@@ -38,29 +33,31 @@ const PostEnglish = (props: any) => {
   );
 };
 
-const PostTamil = (props: any) => {
+const RequestTamil = (props: any) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          நான் கொண்டு செல்லக்கூடிய பொருட்கள்:{" "}
+          நான் தேவைப்படும் பொருட்கள்:{" "}
         </Text>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          {props.children.itemsCanCarry.toString()}
-          நான் எங்கே போகிறேன்: {props.children.destination.toString()}
+          {props.children.itemsNeed.toString()}
+          எனக்கு அது தேவைப்படும்போது்:
+          {props.children.whenNeed.toString()}
         </Text>
         <View>
           <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-            நான் எந்த நேரத்தில் திரும்பி வருகிறேன்:{" "}
-            {props.children.returnTime.toString().substring(16, 21)}hrs
+
+            எங்கே நான் வாழ்:{" "}
+            {props.children.whereLive.toString()}hrs
           </Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <TouchableOpacity onPress={() => props.navigate()}>
-              <Text style={styles.request}>கோரிக்கை</Text>
+              <Text style={styles.request}>உதவி</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+            <TouchableOpacity onPress={() => props.deleteRequest(props.id)}>
               <Text style={styles.request}>அழி</Text>
             </TouchableOpacity>
           </View>
@@ -70,29 +67,30 @@ const PostTamil = (props: any) => {
   );
 };
 
-const PostMalay = (props: any) => {
+const RequestMalay = (props: any) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          bilangan ites: {props.children.itemsCanCarry.toString()}
+          bilangan ites: {props.children.itemsNeed.toString()}
         </Text>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          Destinasi: {props.children.destination.toString()}
+          Destinasi: {props.children.whenNeed.toString()}
         </Text>
         <View>
           <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
             kembali oleh:{" "}
-            {props.children.returnTime.toString().substring(16, 21)}hrs
+            {props.children.whereLive.toString()}hrs
           </Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <TouchableOpacity onPress={() => props.navigate()}>
-              <Text style={styles.request}>Minta Tolong</Text>
+              <Text style={styles.request}>
+                menolong</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
-              <Text style={styles.request}>Hapus</Text>
+            <TouchableOpacity onPress={() => props.deleteRequest(props.id)}>
+              <Text style={styles.request}>Padam</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -101,28 +99,29 @@ const PostMalay = (props: any) => {
   );
 };
 
-const PostChinese = (props: any) => {
+const RequestChinese = (props: any) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          我可携带几样物品: {props.children.itemsCanCarry.toString()}
+
+          我需要的物品: {props.children.itemsNeed.toString()}
         </Text>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          我要去的地方: {props.children.destination.toString()}
+          当我需要的时候方: {props.children.whenNeed.toString()}
         </Text>
         <View>
           <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-            我什么时候回来:
-            {props.children.returnTime.toString().substring(16, 21)}hrs
+            我生活的地方来:
+            {props.children.whereLive.toString()}hrs
           </Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <TouchableOpacity onPress={() => props.navigate()}>
-              <Text style={styles.request}>要求</Text>
+              <Text style={styles.request}>帮助</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+            <TouchableOpacity onPress={() => props.deleteRequest(props.id)}>
               <Text style={styles.request}>删除</Text>
             </TouchableOpacity>
           </View>
@@ -132,22 +131,22 @@ const PostChinese = (props: any) => {
   );
 };
 
-const Post = (props: any) => {
+const Request = (props: any) => {
   switch (props.language) {
     case "ENGLISH":
-      return PostEnglish(props);
+      return RequestEnglish(props);
     case "CHINESE":
-      return PostChinese(props);
+      return RequestChinese(props);
     case "MALAY":
-      return PostMalay(props);
+      return RequestMalay(props);
     case "TAMIL":
-      return PostTamil(props);
+      return RequestTamil(props);
     default:
-      return PostEnglish(props);
+      return RequestEnglish(props);
   }
 };
 
-export default Post;
+export default Request;
 
 const styles = StyleSheet.create({
   card: {

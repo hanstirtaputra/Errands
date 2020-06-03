@@ -4,12 +4,13 @@ import { GiftedChat } from "react-native-gifted-chat";
 
 const ChatScreen = ({ route, navigation }) => {
   const [messages, setMessages] = React.useState([]);
-  const language = route.params ? route.params.selectedLanguage : null;
+  const num = route.params.screenType === 'activity' ? 2 : 1;
+
 
   const getText = () => {
     switch (language) {
       case "ENGLISH":
-        return "Hello I'll come back with what you need in a jiffy";
+        return "Hello I'll come back with what you need soon";
 
       case "CHINESE":
         return "我马上回来";
@@ -21,7 +22,7 @@ const ChatScreen = ({ route, navigation }) => {
         return "வணக்கம் மோசமாக ஒரு கணத்தில் உங்களுடன் திரும்பி வாருங்கள்";
 
       default:
-        return "Hello I'll come back with what you need in a jiffy";
+        return "Hello I'll come back with what you need soon";
     }
   };
 
@@ -29,7 +30,8 @@ const ChatScreen = ({ route, navigation }) => {
     setMessages([
       {
         _id: 1,
-        text: getText(),
+        //text: getText(),
+        image: "https://cdn1.productnation.co/stg/sites/3/5cad5b8fa6677.jpeg",
         createdAt: new Date(),
         user: {
           _id: 2,
@@ -48,7 +50,7 @@ const ChatScreen = ({ route, navigation }) => {
       messages={messages}
       onSend={(messages) => onSend(messages)}
       user={{
-        _id: 1,
+        _id: num,
       }}
     />
   );
