@@ -54,9 +54,16 @@ const PostTamil = (props: any) => {
             நான் எந்த நேரத்தில் திரும்பி வருகிறேன்:{" "}
             {props.children.returnTime.toString().substring(16, 21)}hrs
           </Text>
-          <TouchableOpacity onPress={() => props.navigate()}>
-            <Text style={styles.request}>கோரிக்கை</Text>
-          </TouchableOpacity>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <TouchableOpacity onPress={() => props.navigate()}>
+              <Text style={styles.request}>Request</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+              <Text style={styles.request}>Delete</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -78,9 +85,16 @@ const PostMalay = (props: any) => {
             kembali oleh:{" "}
             {props.children.returnTime.toString().substring(16, 21)}hrs
           </Text>
-          <TouchableOpacity onPress={() => props.navigate()}>
-            <Text style={styles.request}> Request</Text>
-          </TouchableOpacity>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <TouchableOpacity onPress={() => props.navigate()}>
+              <Text style={styles.request}>Request</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+              <Text style={styles.request}>Delete</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -102,9 +116,16 @@ const PostChinese = (props: any) => {
             我什么时候回来:
             {props.children.returnTime.toString().substring(16, 21)}hrs
           </Text>
-          <TouchableOpacity onPress={() => props.navigate()}>
-            <Text style={styles.request}>要求</Text>
-          </TouchableOpacity>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <TouchableOpacity onPress={() => props.navigate()}>
+              <Text style={styles.request}>Request</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+              <Text style={styles.request}>Delete</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
