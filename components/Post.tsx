@@ -22,9 +22,16 @@ const PostEnglish = (props: any) => {
             {props.children.returnTime.toString().substring(16, 21)}hrs
           </Text>
 
-          <TouchableOpacity onPress={() => props.navigate()}>
-            <Text style={styles.request}>Request</Text>
-          </TouchableOpacity>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <TouchableOpacity onPress={() => props.navigate()}>
+              <Text style={styles.request}>Request</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.deletePost(props.id)}>
+              <Text style={styles.request}>Delete</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -85,7 +92,7 @@ const PostChinese = (props: any) => {
     <View style={styles.card}>
       <View style={styles.cardContent}>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
-          我可以携带的物品: {props.children.itemsCanCarry.toString()}
+          我可携带几样物品: {props.children.itemsCanCarry.toString()}
         </Text>
         <Text style={{ fontSize: props.elderly ? 25 : 18 }}>
           我要去的地方: {props.children.destination.toString()}

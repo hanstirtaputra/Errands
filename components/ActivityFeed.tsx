@@ -20,6 +20,8 @@ const ActivityFeed = (props) => {
             elderly={props.elderly}
             navigate={props.navigate}
             language={props.selectedLanguage}
+            deletePost={props.deletePost}
+            id={item.id}
           />
         )}
         keyExtractor={(item) => item.id}

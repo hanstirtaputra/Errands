@@ -16,7 +16,8 @@ import ActivityFeed from "./ActivityFeed";
  * 2) Display all posts
  */
 const MainScreen = (props: any) => {
-  var idCount = 0;
+  const [idCount, incCount] = useState(0);
+
   const data = [
     {
       id: idCount,
@@ -40,7 +41,7 @@ const MainScreen = (props: any) => {
   };
 
   const updatePosts = (time, noItems, selectedDestination) => {
-    idCount++;
+    incCount(idCount + 1);
     setModalVisible(!modalVisible);
     addToPost([
       ...allPosts,
@@ -52,6 +53,10 @@ const MainScreen = (props: any) => {
       },
     ]);
     console.log(allPosts);
+  };
+
+  const deletePost = (id) => {
+    addToPost(allPosts.filter((post) => post.id !== id));
   };
 
   const setLanguageToChinese = () => {
@@ -94,6 +99,7 @@ const MainScreen = (props: any) => {
         elderly={elder}
         navigate={navigate}
         selectedLanguage={language}
+        deletePost={deletePost}
       />
 
       <View style={styles.modal}></View>
